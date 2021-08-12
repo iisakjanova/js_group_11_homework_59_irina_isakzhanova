@@ -1,0 +1,18 @@
+.NewMoviesToWatch {
+    padding: 20px;
+    border: 1px solid grey;
+    margin: 20px;
+}
+
+.InputField {
+    display: flex;
+    width: 70%;
+}
+
+.InputField input {
+    flex-grow: 1;
+}
+
+.Btn {
+    margin-left: 10px;
+}

@@ -4,10 +4,10 @@ import {nanoid} from "nanoid";
 import React from 'react';
 import './NewMoviesToWatch.css';
 
-import MovieInput from "../../components/MovieInput/MovieInput";
-import Movie from "../../components/Movie/Movie";
+import MovieInput from "../../components/componentsOnClasses/MovieInput/MovieInput";
+import Movie from "../../components/componentsOnClasses/Movie/Movie";
 
-class NewMoviesToWatch extends Component {
+class NewMoviesToWatchOnClasses extends Component {
     state = {
         movies: {},
         currentMovie: '',
@@ -71,4 +71,4 @@ class NewMoviesToWatch extends Component {
     }
 }
 
-export default NewMoviesToWatch;
+export default NewMoviesToWatchOnClasses;

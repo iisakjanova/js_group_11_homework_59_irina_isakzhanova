@@ -1,8 +1,10 @@
-import NewMoviesToWatch from "./containers/NewMoviesToWatch/NewMoviesToWatch";
+import NewMoviesToWatchOnClasses from "./containers/NewMoviesToWatchOnClasses/NewMoviesToWatchOnClasses";
+import NewMoviesToWatchOnFunctions from "./containers/NewMoviesToWatchOnFunctions/NewMoviesToWatchOnFunctions";
 
 const App = () => (
     <div className="App">
-        <NewMoviesToWatch />
+        {/*<NewMoviesToWatchOnClasses />*/}
+        <NewMoviesToWatchOnFunctions />
     </div>
 );
 
