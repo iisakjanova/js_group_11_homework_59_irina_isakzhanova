@@ -2,6 +2,8 @@ import {Component} from 'react';
 import {nanoid} from "nanoid";
 
 import React from 'react';
+import './NewMoviesToWatch.css';
+
 import MovieInput from "../../components/MovieInput/MovieInput";
 import Movie from "../../components/Movie/Movie";
 
@@ -47,12 +49,14 @@ class NewMoviesToWatch extends Component {
 
     render() {
         return (
-            <div>
+            <div className="NewMoviesToWatch">
                 <MovieInput
                     value={this.state.currentMovie}
                     handleChange={this.handleChangeInput}
                     onAdd={this.addMovie}
                 />
+
+                {Object.keys(this.state.movies).length > 0 ? <h4>To watch list:</h4> : null}
                 {Object.values(this.state.movies).map(movie => (
                     <Movie
                         id={movie.id}
