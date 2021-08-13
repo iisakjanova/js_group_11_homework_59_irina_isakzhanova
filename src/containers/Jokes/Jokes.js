@@ -10,23 +10,53 @@ const Jokes = () => {
     const [jokes, setJokes] = useState({});
 
     useEffect(() => {
-        for (let i = 0; i < 5; i++) {
-            getJoke().catch(e => console.error(e));
-        }
+        getJokes(3)
+            .then(jokes => {
+                const jokesObject = normalizeJokes(jokes);
+                setJokes(jokesObject);
+            })
+            .catch(e => console.error(e));
     }, []);
 
-    const getJoke = async () => {
+    const normalizeJokes = jokesArray => {
+        return jokesArray.reduce((acc, cur) => {
+            return {
+                ...acc,
+                [cur.id]: cur
+            }
+        }, {});
+    };
+
+    const getSingleJoke = async () => {
+        let joke;
         const response = await fetch('https://api.chucknorris.io/jokes/random');
 
         if (response.ok) {
-            const joke = await response.json();
-
-            setJokes(prevJokes => ({
-                    ...prevJokes,
-                    [joke.id]: joke
-                })
-            );
+            joke = response.json();
         }
+
+        return joke;
+    };
+
+    const getJokes = (n) => {
+        const requests = [];
+
+        for (let i = 0; i < n; i++) {
+            requests.push(getSingleJoke());
+        }
+
+        return Promise.all(requests);
+    };
+
+    const handleNewJokes = async () => {
+        const jokes = await getJokes(5)
+        const jokesObject = normalizeJokes(jokes);
+
+        setJokes(prevJokes => ({
+                ...prevJokes,
+                ...jokesObject
+            })
+        );
     };
 
     return (
@@ -41,7 +71,7 @@ const Jokes = () => {
             ))}
 
             <JokesButton
-                onClick={getJoke}
+                onClick={handleNewJokes}
             />
         </div>
     );

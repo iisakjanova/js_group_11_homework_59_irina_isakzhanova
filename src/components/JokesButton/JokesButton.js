@@ -6,7 +6,7 @@ const JokesButton = props => {
             type="button"
             onClick={() => props.onClick()}
         >
-            New joke
+            New jokes
         </button>
     );
 };
