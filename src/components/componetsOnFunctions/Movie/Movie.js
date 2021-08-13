@@ -21,8 +21,8 @@ const Movie = props => {
     );
 };
 
-const MemorizedMovie = React.memo(Movie,(prevProps, nextProps) => {
-    return prevProps.value === nextProps.value;
+const MemoizedMovie = React.memo(Movie, (prev, next) => {
+    return prev.value === next.value;
 });
 
-export default MemorizedMovie;
+export default MemoizedMovie;

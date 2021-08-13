@@ -21,8 +21,8 @@ const MovieInput = props => {
     );
 };
 
-const MemorizedMovieInput = React.memo(MovieInput,(prevProps, nextProps) => {
-    return prevProps.value === nextProps.value;
+const MemoizedMovieInput = React.memo(MovieInput, (prev, next) => {
+    return prev.value === next.value;
 });
 
-export default MemorizedMovieInput;
+export default MemoizedMovieInput;

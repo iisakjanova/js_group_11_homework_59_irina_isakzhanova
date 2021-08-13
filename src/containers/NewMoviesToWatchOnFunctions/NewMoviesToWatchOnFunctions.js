@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {nanoid} from "nanoid";
 
 import React from 'react';
@@ -7,9 +7,16 @@ import './NewMoviesToWatch.css';
 import MovieInput from "../../components/componetsOnFunctions/MovieInput/MovieInput";
 import Movie from "../../components/componetsOnFunctions/Movie/Movie";
 
+const moviesString = localStorage.getItem('movies');
+const initialMovies = moviesString ? JSON.parse(moviesString) : {};
+
 const NewMoviesToWatchOnFunctions = () => {
-    const [movies, setMovies] = useState({});
+    const [movies, setMovies] = useState(initialMovies);
     const [currentMovie, setCurrentMovie] = useState('');
+
+    useEffect(() => {
+        saveInLocalStorage(movies);
+    }, [movies]);
 
     const handleChangeInput = value => {
         setCurrentMovie(value);
@@ -17,30 +24,36 @@ const NewMoviesToWatchOnFunctions = () => {
 
     const addMovie = () => {
         const id = nanoid();
-
-        setMovies(prevMovies => (
+        setMovies(prevState => (
             {
-                ...prevMovies,
+                ...prevState,
                 [id]: {name: currentMovie, id}
             }
         ));
+
         setCurrentMovie('');
     };
 
     const handleChangeMovie = (id, value) => {
-        setMovies(prevMovies => (
+        setMovies(prevState => (
             {
-                ...prevMovies,
-                [id]: {...prevMovies[id], name: value}
+                ...prevState,
+                [id]: {...prevState[id], name: value}
             }
-        ))
+        ));
     };
 
     const handleDeleteMovie = (id) => {
-        setMovies(prevMovies => {
-            const {[id]: _, ...rest} = prevMovies;
-            return rest
-        })
+        setMovies(prevState => {
+                const {[id]: _, ...newMovies} = prevState;
+                return newMovies;
+            }
+        );
+    };
+
+    const saveInLocalStorage = (movies) => {
+        const moviesSerialized = JSON.stringify(movies);
+        localStorage.setItem('movies', moviesSerialized);
     };
 
     return (

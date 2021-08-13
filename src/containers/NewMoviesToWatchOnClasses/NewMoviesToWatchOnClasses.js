@@ -7,44 +7,57 @@ import './NewMoviesToWatch.css';
 import MovieInput from "../../components/componentsOnClasses/MovieInput/MovieInput";
 import Movie from "../../components/componentsOnClasses/Movie/Movie";
 
+const moviesString = localStorage.getItem('movies');
+const initialMovies = moviesString ? JSON.parse(moviesString) : {};
+
 class NewMoviesToWatchOnClasses extends Component {
     state = {
-        movies: {},
+        movies: initialMovies,
         currentMovie: '',
-    }
+    };
 
-    handleChangeInput = (value) => {
+    handleChangeInput = value => {
         this.setState(prevState => ({
             currentMovie: value
-        }))
+        }));
     };
 
     addMovie = () => {
         const id = nanoid();
 
-        this.setState(prevState => ({
+        const newState = {
             movies: {
-                ...prevState.movies,
+                ...this.state.movies,
                 [id]: {name: this.state.currentMovie, id}
             },
             currentMovie: '',
-        }))
+        };
+
+        this.setState(newState);
+        this.saveInLocalStorage(newState.movies);
     };
 
     handleChangeMovie = (id, value) => {
-        this.setState(prevState => ({
+        const newState = {
             movies: {
-                ...prevState.movies,
-                [id]: {...prevState.movies[id], name: value}
+                ...this.state.movies,
+                [id]: {...this.state.movies[id], name: value}
             }
-        }))
+        };
+
+        this.setState(newState);
+        this.saveInLocalStorage(newState.movies);
     };
 
-    handleDeleteMovie = (id) => {
-        this.setState(prevState => {
-            const {[id]: _, ...rest} = prevState.movies;
-            return {movies: rest}
-        })
+    handleDeleteMovie = id => {
+        const {[id]: _, ...newMovies} = this.state.movies;
+        this.setState({movies: newMovies});
+        this.saveInLocalStorage(newMovies);
+    };
+
+    saveInLocalStorage(movies) {
+        const moviesSerialized = JSON.stringify(movies);
+        localStorage.setItem('movies', moviesSerialized);
     };
 
     render() {

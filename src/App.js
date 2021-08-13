@@ -3,8 +3,8 @@ import NewMoviesToWatchOnFunctions from "./containers/NewMoviesToWatchOnFunction
 
 const App = () => (
     <div className="App">
-        {/*<NewMoviesToWatchOnClasses />*/}
-        <NewMoviesToWatchOnFunctions />
+        <NewMoviesToWatchOnClasses />
+        {/*<NewMoviesToWatchOnFunctions />*/}
     </div>
 );
 
