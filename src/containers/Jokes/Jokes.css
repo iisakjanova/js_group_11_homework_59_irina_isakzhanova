@@ -1,0 +1,12 @@
+.Jokes {
+    padding: 20px;
+}
+
+.Jokes h4 {
+    text-align: center;
+}
+
+.Joke {
+    padding: 20px;
+    border: 1px solid grey;
+}
